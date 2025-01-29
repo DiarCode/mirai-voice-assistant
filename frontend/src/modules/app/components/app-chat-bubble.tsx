@@ -3,7 +3,7 @@ import { Message, MessageType } from '../models/message.model'
 
 const userMessageClasses =
 	'rounded-2xl bg-gray-500/20 backdrop-blur-lg text-white self-end border border-gray-500/20 px-5 py-3 text-base'
-const systemMessageClasses = 'text-2xl self-start text-white'
+const systemMessageClasses = 'rounded-2xl bg-blue-500/20 backdrop-blur-lg text-white self-start border border-blue-500/20 px-5 py-3 text-base'
 
 export const ChatBubble = ({ message }: { message: Message }) => (
 	<div

@@ -1,6 +1,5 @@
+import { OpenAIWhisperAudio } from '@langchain/community/document_loaders/fs/openai_whisper_audio'
 import { ChatOpenAI } from '@langchain/openai'
-import axios from 'axios'
-import * as fs from 'fs'
 
 export const assistantLLM = new ChatOpenAI({
 	model: 'gpt-4o-audio-preview',
@@ -11,22 +10,13 @@ export const assistantLLM = new ChatOpenAI({
 	},
 })
 
-export async function transcribeAudio(filePath: string): Promise<string> {
-	// Example using OpenAI Whisper API
-	const formData = new FormData()
-	formData.append('file', fs.createReadStream(filePath))
-	formData.append('model', 'whisper-1')
+export async function transcribeAudio(filePath: string) {
+	const loader = new OpenAIWhisperAudio(filePath)
+	const docs = await loader.load()
 
-	const response = await axios.post(
-		'https://api.openai.com/v1/audio/transcriptions',
-		formData,
-		{
-			headers: {
-				Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
-				'Content-Type': 'multipart/form-data',
-			},
-		}
-	)
-
-	return response.data.text
+	return docs[0].pageContent
 }
+
+// assistantAgent.ts
+
+

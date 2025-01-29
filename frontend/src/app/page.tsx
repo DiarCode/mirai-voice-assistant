@@ -3,6 +3,7 @@
 import aiOrbAnimation from '@/core/assets/animations/ai_orb_landing.json'
 import { motion } from 'framer-motion'
 import Lottie from 'lottie-react'
+import { useRouter } from 'next/navigation'
 import { useEffect, useRef } from 'react'
 
 const FEATURES = [
@@ -14,7 +15,13 @@ const FEATURES = [
 ]
 
 export default function LandingPage() {
+	const router = useRouter()
+
 	const gradientRef = useRef<HTMLDivElement>(null)
+
+	const onClickStart = () => {
+		router.push('/app')
+	}
 
 	useEffect(() => {
 		let frame: number
@@ -104,6 +111,7 @@ export default function LandingPage() {
 					whileHover={{ scale: 1.05 }}
 					whileTap={{ scale: 0.95 }}
 					className='bg-white bg-gradient-to-r shadow-md mt-8 px-8 py-3 rounded-lg font-semibold text-black transition-all'
+					onClick={onClickStart}
 				>
 					Get Started
 				</motion.button>
